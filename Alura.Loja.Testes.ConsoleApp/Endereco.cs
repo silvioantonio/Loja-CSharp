@@ -14,5 +14,6 @@
 
         public string Cidade { get; set; }
         public string Logradouro { get; set; }
+        public Cliente Cliente { get; set; }
     }
 }

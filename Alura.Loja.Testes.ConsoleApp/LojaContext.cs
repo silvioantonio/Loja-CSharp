@@ -17,6 +17,8 @@ namespace Alura.Loja.Testes.ConsoleApp
             //idetificadores unicos da nova tabela, nao precisando declarar um campo ID unico(oque nao fari sentido no contexto)
             modelBuilder.Entity<PromocaoProduto>().HasKey(pp => new { pp.PromocaoId, pp.ProdutoId });
 
+            modelBuilder.Entity<Endereco>().ToTable("Enderecos");
+
             //Dessa forma informamos que o id do endereco é o mesmo id do cliente(Conhecido como estado de sombra)
             modelBuilder.Entity<Endereco>().Property<int>("ClienteId");
 
