@@ -10,6 +10,14 @@ namespace Alura.Loja.Testes.ConsoleApp
         public DbSet<Compra> Compras { get; set; }
         public DbSet<Promocao> Promocoes { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // No momento de criar minha migração e gerar a nova tabela intermediaria, eu coloco  esses dois parametros como 
+            //idetificadores unicos da nova tabela, nao precisando declarar um campo ID unico(oque nao fari sentido no contexto)
+            modelBuilder.Entity<PromocaoProduto>().HasKey(pp => new { pp.PromocaoId, pp.ProdutoId });
+            base.OnModelCreating(modelBuilder);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             const string ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=LojaDB;Trusted_Connection=true;";
