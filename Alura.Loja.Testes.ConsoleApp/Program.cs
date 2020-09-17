@@ -23,8 +23,60 @@ namespace Alura.Loja.Testes.ConsoleApp
             //----------------------RELACIONAMENTOS---------------------------
 
             //UmParaMuitos();
+
             //MuitosParaMuitos();
 
+            //InserirClienteComTabelaAninhada();
+
+            ConsultasComCondiçoes();
+            
+
+            Console.ReadLine();
+        }
+
+        private static void ConsultasComCondiçoes()
+        {
+            void IncluirPromocao()
+            {
+                using (var context = new LojaContext())
+                {
+                    var promocao = new Promocao();
+                    promocao.DataInicio = new DateTime(2020, 1, 1);
+                    promocao.DataFim = new DateTime(2020, 5, 1);
+                    promocao.Descricao = "Fim de Loja";
+
+                    var produtos = context.Produtos.Where(p => p.Categoria == "Bebidas").ToList();
+
+                    foreach (var item in produtos)
+                    {
+                        promocao.IncluiProduto(item);
+                    }
+
+                    context.Promocoes.Add(promocao);
+                    context.SaveChanges();
+                }
+            };
+
+            using (var contexto2 = new LojaContext())
+            {
+                //Para que a pesquisa busque nas tabelas aninhadas, devemos incluir no select(como se faz em um JOIN)
+                //var promocao = contexto2.Promocoes.FirstOrDefault();
+
+                //Para relacionamentos N para M, devemos navegar nos niveis utilizando o include e theninclude
+                var promocao = contexto2.Promocoes
+                    .Include( p => p.Produtos )
+                    .ThenInclude( pp => pp.Produto )
+                    .FirstOrDefault();
+
+                foreach (var item in promocao.Produtos)
+                {
+                    Console.WriteLine(item.Produto);
+                }
+            }
+        }
+
+        private static void InserirClienteComTabelaAninhada()
+        {
             var cliente = new Cliente();
             cliente.Nome = "Fulano da silva";
             cliente.Endereco = new Endereco() { Cidade = "Palmas", Logradouro = "Rua 10" };
@@ -34,8 +86,6 @@ namespace Alura.Loja.Testes.ConsoleApp
                 context.Clientes.Add(cliente);
                 context.SaveChanges();
             }
-
-            Console.ReadLine();
         }
 
         private static void AtualizarProdutos()
