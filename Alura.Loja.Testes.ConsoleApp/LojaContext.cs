@@ -24,7 +24,6 @@ namespace Alura.Loja.Testes.ConsoleApp
 
             modelBuilder.Entity<Endereco>().HasKey("ClienteId");
 
-            base.OnModelCreating(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

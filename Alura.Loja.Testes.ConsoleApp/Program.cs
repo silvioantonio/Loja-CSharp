@@ -22,14 +22,22 @@ namespace Alura.Loja.Testes.ConsoleApp
 
             //----------------------RELACIONAMENTOS---------------------------
 
-            //UmParaMuitos();
+            UmParaMuitos();
 
-            //MuitosParaMuitos();
+            MuitosParaMuitos();
 
-            //InserirClienteComTabelaAninhada();
+            InserirClienteComTabelaAninhada();
 
-            ConsultasComCondiçoes();
-            
+            //ConsultasComCondiçoes();
+
+            using (var contexto = new LojaContext())
+            {
+                var cliente = contexto.Clientes.Include( e => e.Endereco ).FirstOrDefault();
+
+                Console.WriteLine($"Endereco de entrega {cliente.Endereco.Logradouro}");
+
+                //var produto = contexto.Produtos.Include( p => p.Compras ).Where( p => p. );
+            }
 
             Console.ReadLine();
         }
@@ -56,7 +64,7 @@ namespace Alura.Loja.Testes.ConsoleApp
                     context.SaveChanges();
                 }
             };
-
+            IncluirPromocao();
             using (var contexto2 = new LojaContext())
             {
                 //Para que a pesquisa busque nas tabelas aninhadas, devemos incluir no select(como se faz em um JOIN)
