@@ -30,16 +30,43 @@ namespace Alura.Loja.Testes.ConsoleApp
 
             //ConsultasComCondiçoes();
 
+            SelectComClausula();
+
+
+            Console.ReadLine();
+        }
+
+        private static void SelectComClausula()
+        {
             using (var contexto = new LojaContext())
             {
-                var cliente = contexto.Clientes.Include( e => e.Endereco ).FirstOrDefault();
+                var cliente = contexto.Clientes.Include(e => e.Endereco).FirstOrDefault();
 
                 Console.WriteLine($"Endereco de entrega {cliente.Endereco.Logradouro}");
 
-                //var produto = contexto.Produtos.Include( p => p.Compras ).Where( p => p. );
-            }
+                /*
+                    Com o objeto contexto, chamaremos o método Entry() passando a referência de produto.
+                    Após, pegaremos a coleção da propriedade Compra com o método Collection(p => p.Compras).
+                    Em seguida faremos uma Query(), que filtrará com a condição Where(c => c.Preco > 10).
+                    Por último, carregaremos com Load() na referência passada no Entry(). 
+                 */
+                var produto = contexto
+                    .Produtos
+                    .Where(p => p.Id == 9004)
+                    .FirstOrDefault();
 
-            Console.ReadLine();
+                contexto.Entry(produto)
+                    .Collection(p => p.Compras)
+                    .Query()
+                    .Where(c => c.Preco > 10)
+                    .Load();
+
+                Console.WriteLine($"Mostrando as compras do produto {produto.Nome}");
+                foreach (var item in produto.Compras)
+                {
+                    Console.WriteLine("\t" + item);
+                }
+            }
         }
 
         private static void ConsultasComCondiçoes()
