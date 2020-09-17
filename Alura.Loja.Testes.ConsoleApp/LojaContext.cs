@@ -16,6 +16,12 @@ namespace Alura.Loja.Testes.ConsoleApp
             // No momento de criar minha migração e gerar a nova tabela intermediaria, eu coloco  esses dois parametros como 
             //idetificadores unicos da nova tabela, nao precisando declarar um campo ID unico(oque nao fari sentido no contexto)
             modelBuilder.Entity<PromocaoProduto>().HasKey(pp => new { pp.PromocaoId, pp.ProdutoId });
+
+            //Dessa forma informamos que o id do endereco é o mesmo id do cliente(Conhecido como estado de sombra)
+            modelBuilder.Entity<Endereco>().Property<int>("ClienteId");
+
+            modelBuilder.Entity<Endereco>().HasKey("ClienteId");
+
             base.OnModelCreating(modelBuilder);
         }
 

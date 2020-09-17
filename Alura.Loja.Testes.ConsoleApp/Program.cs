@@ -25,7 +25,16 @@ namespace Alura.Loja.Testes.ConsoleApp
             //UmParaMuitos();
             //MuitosParaMuitos();
 
-            
+            var cliente = new Cliente();
+            cliente.Nome = "Fulano da silva";
+            cliente.Endereco = new Endereco() { Cidade = "Palmas", Logradouro = "Rua 10" };
+
+            using (var context = new LojaContext())
+            {
+                context.Clientes.Add(cliente);
+                context.SaveChanges();
+            }
+
             Console.ReadLine();
         }
 
