@@ -13,12 +13,12 @@ namespace Alura.Loja.Testes.ConsoleApp
         {
             //-----------------------CRUD USANDO ENTITY--------------------- 
             //GravarUsandoAdoNet();
-            GravarUsandoEntity();
-            RecuperarProdutos();
-            DeletarProdutos();
-            RecuperarProdutos();
-            AtualizarProdutos();
-            RecuperarProdutos();
+            //GravarUsandoEntity();
+            //RecuperarProdutos();
+            //DeletarProdutos();
+            //RecuperarProdutos();
+            //AtualizarProdutos();
+            //RecuperarProdutos();
 
             //----------------------RELACIONAMENTOS---------------------------
 
@@ -42,6 +42,16 @@ namespace Alura.Loja.Testes.ConsoleApp
                 contexto.SaveChanges();
             }
 
+            //----------------------MUITOS PARA MUITOS----------------------------
+
+            var promocaoDePascoa = new Promocao();
+            promocaoDePascoa.Descricao = "Pascoa Da Hora";
+            promocaoDePascoa.DataInicio = DateTime.Now;
+            promocaoDePascoa.DataFim = DateTime.Now.AddMonths(3);
+
+            promocaoDePascoa.Produtos.Add(new Produto());
+            promocaoDePascoa.Produtos.Add(new Produto());
+            promocaoDePascoa.Produtos.Add(new Produto());
 
             Console.ReadLine();
         }
