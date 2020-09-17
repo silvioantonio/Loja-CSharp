@@ -7,6 +7,7 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         // Classe a ser persistida pela entity, no caso, produto..o nome da propriedade sera o nome da tabela, no caso Produtos
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Compra> Compras { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
