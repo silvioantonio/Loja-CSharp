@@ -22,15 +22,15 @@ namespace Alura.Loja.Testes.ConsoleApp
 
             //----------------------RELACIONAMENTOS---------------------------
 
-            UmParaMuitos();
+            //UmParaMuitos();
 
-            MuitosParaMuitos();
+            //MuitosParaMuitos();
 
-            InserirClienteComTabelaAninhada();
+            //InserirClienteComTabelaAninhada();
 
             //ConsultasComCondiçoes();
 
-            SelectComClausula();
+            //SelectComClausula();
 
 
             Console.ReadLine();
@@ -208,9 +208,11 @@ namespace Alura.Loja.Testes.ConsoleApp
 
             using (var contexto = new LojaContext())
             {
-                //contexto.Promocoes.Add(promocaoDePascoa);
-                var promocao = contexto.Promocoes.Find(3);
+                contexto.Promocoes.Add(promocaoDePascoa);
+
+                var promocao = contexto.Promocoes.Find(1);
                 contexto.Promocoes.Remove(promocao);
+
                 contexto.SaveChanges();
             }
 
@@ -234,7 +236,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             using (var contexto = new LojaContext())
             {
                 contexto.Compras.Add(compra);
-
+                 
                 contexto.SaveChanges();
             }
         }

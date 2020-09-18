@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Alura.Loja.Testes.ConsoleApp
 {
-    public class Promocao
+    internal class Promocao
     {
         public int Id { get; set; }
         public DateTime DataFim { get; internal set; }
